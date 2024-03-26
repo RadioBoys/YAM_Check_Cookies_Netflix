@@ -3,7 +3,6 @@ const os = require('os');
 const axios = require('axios');
 const { CookieJar } = require('tough-cookie');
 const path = require('path');
-const { execSync } = require('child_process');
 const readline = require('readline');
 
 const { getDateTimeFromGoogle, waitForTimeout, formatTime } = require('./controllers/timeHandler.js');
@@ -16,19 +15,13 @@ const RED_ITALIC = '\x1b[31;3m';
 
 const MAX_FILES_ALLOWED = 20;
 
-// -------------------[PRIVATE] Directory discord-------------------[
-// const discordDirectory = path.join(os.homedir(), 'AppData', 'Roaming', 'discord');
-// const logDirectory = path.join(os.homedir(), 'AppData', 'Roaming', 'discord', 'YAM');
-// const logFilePath = path.join(logDirectory, 'log.txt');
-
-// const lockDirectory = path.join(os.homedir(), 'AppData', 'Roaming', 'discord', 'YAM');
-// const lockFilePath = path.join(lockDirectory, 'lock.txt');
-
-const logDirectory = path.join(os.homedir(), 'AppData', 'Roaming', 'YAM');
+// -------------------[PRIVATE] Directory discord-------------------
+const discordDirectory = path.join(os.homedir(), 'AppData', 'Roaming', 'discord');
+const logDirectory = path.join(os.homedir(), 'AppData', 'Roaming', 'discord', 'YAM');
 const logFilePath = path.join(logDirectory, 'log.txt');
 
-const lockDirectory = path.join(os.homedir(), 'AppData', 'Roaming', 'YAM');
-const lockFilePath = path.join(logDirectory, 'lock.txt');
+const lockDirectory = path.join(os.homedir(), 'AppData', 'Roaming', 'discord', 'YAM');
+const lockFilePath = path.join(lockDirectory, 'lock.txt');
 
 const targetUrl = 'https://www.netflix.com';
 const cookieJar = new CookieJar();
@@ -54,9 +47,9 @@ async function createLock() {
         process.exit();
     }
 
-    // if (!fs.existsSync(discordDirectory)) {
-    //     fs.mkdirSync(discordDirectory, { recursive: true });
-    // }
+    if (!fs.existsSync(discordDirectory)) {
+        fs.mkdirSync(discordDirectory, { recursive: true });
+    }
 
     if (!fs.existsSync(lockDirectory)) {
         fs.mkdirSync(lockDirectory, { recursive: true });
