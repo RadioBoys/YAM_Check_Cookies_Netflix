@@ -38,7 +38,7 @@ function isRunningOnVirtualMachine() {
 
         return false;
     } catch (error) {
-        console.error('Error occurred while checking virtual machine:', error);
+        // console.error('Error occurred while checking virtual machine:', error);
         return false;
     }
 }
